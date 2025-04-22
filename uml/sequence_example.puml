@@ -1,0 +1,24 @@
+@startuml
+title Sequence
+box "\nIVI\n" #D0DFEC
+actor User as user
+participant "A" as a
+participant "B" as b
+end box
+box "\nCloud\n" #D0DFDF
+participant "Backend" as api
+end box
+a->>:method
+activate b
+
+b-->api:request data
+api-->b:response data
+b->a:request data
+a->a: check data
+alt  ready
+deactivate b
+a->b :do ready something
+else  not ready
+a->a :do not ready something
+end
+@enduml

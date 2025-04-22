@@ -1,0 +1,34 @@
+[开始]
+└─ (IndexSelectActivity) 显示首页入口
+   └─ 用户点击"商城"按钮
+      └─ (activity_index_select.xml) 触发onClick事件
+         └─ 通过TravelRouter跳转
+            └─ (SelfGuideTourListFragment) 加载景点列表
+               └─ 用户选择景点
+                  └─ (SelfGuideTourListFragment) 调用ServiceManager.travel.routeDetail()
+                     └─ (TravelApi.kt) 执行ticketDetail路由
+                        └─ (TicketDetailActivity) 显示景点详情
+                           └─ 用户点击导航按钮
+                              └─ (TicketDetailActivity.clickNavigation) 获取坐标
+                                 └─ 调用MapUtils.startNavApp()
+                                    ├─ (Position) 转换坐标系
+                                    └─ 启动第三方地图应用
+[结束]
+@startuml
+start
+:进入首页(IndexSelectActivity);
+:点击商城入口;
+:加载景点列表(SelfGuideTourListFragment);
+:选择景点条目;
+:路由跳转(TravelApi.ticketDetail);
+:显示景点详情(TicketDetailActivity);
+if (点击位置信息?) then (是)
+  :获取坐标(viewModel.detailInfo);
+  :坐标系转换(Position.fromGCJ);
+  :启动导航(MapUtils.startNavApp);
+  stop
+else (否)
+  stop
+endif
+
+@enduml

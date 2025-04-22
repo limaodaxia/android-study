@@ -1,0 +1,23 @@
+@startuml
+actor 用户 as User
+participant MainActivity
+participant IndexActivity
+participant GoodsHomeFragment
+participant HotelListFragment
+participant HotelDetailActivity
+participant MapUtils
+participant 第三方地图
+
+
+User -> MainActivity: 点击进入app
+MainActivity -> IndexActivity: 选择商城服务
+IndexActivity -> IndexActivity:开启定位服务\n获取当前位置
+IndexActivity -> GoodsHomeFragment: 加载列表(switchFragment)
+GoodsHomeFragment -> HotelListFragment:点击酒店，调用服务的跳转方法\n（Service.travel.indexGoods）
+HotelListFragment -> HotelDetailActivity:点击具体商品
+HotelDetailActivity -> HotelDetailActivity: 获取目的地坐标\nviewModel.detailInfo
+HotelDetailActivity -> MapUtils: 点击导航按钮\nMapUtils.startNavApp(position)
+MapUtils -> 第三方地图: 启动Intent\n(geo0:0:%f,%f?q=%s)
+第三方地图 -> 第三方地图: 显示导航界面
+
+@enduml

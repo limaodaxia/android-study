@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/class-diagram
+'这图是用来描述类之间的关系'
+
+abstract class RxJavaCompatActivity
+abstract class BaseActivity{
+-isStarted: Boolean
+-isResumed: Boolean
++isActivityStarted():Boolean
++isActivityResumed():Boolean
+# setBasalSystemUiVisibility():Unit
+# initSystemUISettings():Unit
+# hideCutoutShortEdges():Unit
+}
+abstract class BaseActivityWithDataBinding{
+# mDatabinding: DataBinding
++ onCreate()
++ {abstract} getResourceId():Int
+}
+abstract class TravelBaseActivity{
++initData()
++initView()
++initListener()
+}
+class IndexSelectActivity
+class IndexActivity
+class MainActivity{
++ onCreate()
+}
+DataBinding<..BaseActivityWithDataBinding:<<create>>
+RxJavaCompatActivity<|- BaseActivity
+BaseActivity <|- BaseActivityWithDataBinding
+
+BaseActivityWithDataBinding <|-- TravelBaseActivity
+TravelBaseActivity <|-- IndexSelectActivity
+TravelBaseActivity <|-- IndexActivity
+TravelBaseActivity <|-- OtherSubClasses
+
+IndexActivity <|-- MainActivity
+
+note top of OtherSubClasses
+  这里表示更多未具体指明的子类
+end note
+
+
+@enduml

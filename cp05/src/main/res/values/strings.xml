@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">cp05</string>
+    <string name="phone_label">手机号码：</string>
+    <string name="password_label">登录密码：</string>
+    <string name="verify_code_label">\u2002\u2002验证码：</string>
+</resources>

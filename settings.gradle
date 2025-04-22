@@ -1,0 +1,33 @@
+pluginManagement {
+    repositories {
+        // 镜像
+        maven{ url 'https://maven.aliyun.com/repository/central'}
+        maven{ url 'https://maven.aliyun.com/repository/google'}
+        maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
+        maven{ url 'https://maven.aliyun.com/repository/public'}
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        // 镜像
+        maven{ url 'https://maven.aliyun.com/repository/central'}
+        maven{ url 'https://maven.aliyun.com/repository/google'}
+        maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
+        maven{ url 'https://maven.aliyun.com/repository/public'}
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "android-study"
+include ':cp01'
+include ':cp02'
+include ':cp03'
+include ':bestpractice'
+include ':cp04'
+include ':cp05'
+include ':cp06'

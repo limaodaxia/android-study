@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+'Switch判断
+start
+switch(condition)
+case(A)
+:funcA();
+case(B)
+:funcB();
+case(C)
+:funcC();
+case(D)
+:funcD();
+endswitch
+stop
+
+'嵌套判断
+start
+if(condition)then(expect)
+if(subCondition)then(expect)
+:return result;
+else(exception)
+:return exception;
+endif
+else (exception)
+:return exception;
+endif
+stop
+
+'重复循环
+start
+repeat
+  :doSomething;
+repeat while (hasNext)
+stop
+
+'并行各自处理处理
+start
+fork
+  :doSomething 1;
+fork again
+  :doSomething 2;
+end fork
+stop
+
+'并行处理并合并
+start
+fork
+  :doSomething 1;
+fork again
+  :doSomething 2;
+end merge
+stop
+
+@enduml
