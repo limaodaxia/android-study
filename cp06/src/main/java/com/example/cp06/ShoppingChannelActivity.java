@@ -16,6 +16,14 @@ public class ShoppingChannelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityShoppingChannelBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+//        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+//            return insets;
+//        });
+
         binding.btnShoppingCart.setOnClickListener(new View.OnClickListener() {
 
             @Override
