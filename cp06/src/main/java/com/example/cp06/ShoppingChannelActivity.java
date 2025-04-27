@@ -35,18 +35,21 @@ public class ShoppingChannelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 数据绑定
         binding = ActivityShoppingChannelBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        // 全面屏设置
         EdgeToEdge.enable(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // 页面初始化
         binding.header.tvTitle.setText("商品频道");
-
+        binding.header.ivBack.setOnClickListener(v -> finish());
         binding.header.ivCart.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ShoppingChannelActivity.this, ShoppingCartActivity.class);
@@ -61,6 +64,7 @@ public class ShoppingChannelActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         showGoods();
+        binding.header.tvCartCount.setText(String.valueOf(MainApplication.cartCount));
     }
 
     /**
@@ -88,11 +92,13 @@ public class ShoppingChannelActivity extends AppCompatActivity {
             iv_thumb.setImageURI(Uri.parse(goodsInfo.getPicPath()));
             tv_name.setText(goodsInfo.getName());
             tv_price.setText(String.valueOf(goodsInfo.getPrice()));
-            btn_add.setOnClickListener(new View.OnClickListener() {
+            iv_thumb.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(ShoppingChannelActivity.this, GoodsDetailActivity.class);
+                    intent.putExtra("goods_id", goodsInfo.getId());
+                    startActivity(intent);
                 }
 
             });

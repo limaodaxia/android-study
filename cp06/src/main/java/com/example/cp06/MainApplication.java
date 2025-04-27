@@ -15,6 +15,7 @@ public class MainApplication extends Application {
 
     private CartDatabase cartDatabase;
 
+    public static int cartCount = 0;
 
     @Override
     public void onCreate() {

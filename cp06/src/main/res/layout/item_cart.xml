@@ -7,7 +7,7 @@
     android:background="@color/white">
 
     <ImageView
-        android:id="@+id/iv_pic"
+        android:id="@+id/iv_thumb"
         android:layout_width="85dp"
         android:layout_height="100dp"
         android:src="@drawable/huawei"/>

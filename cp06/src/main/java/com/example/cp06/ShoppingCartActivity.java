@@ -48,7 +48,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             return insets;
         });
         binding.header.tvTitle.setText("购物车");
-
+        binding.header.ivBack.setOnClickListener(v -> finish());
         binding.btnShoppingChannel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +111,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 View view = LayoutInflater.from(this).inflate(R.layout.item_cart, binding.llCart, false);
 
                 // 获取控件
-                ImageView iv_pic = view.findViewById(R.id.iv_pic);
+                ImageView iv_pic = view.findViewById(R.id.iv_thumb);
                 TextView tv_name = view.findViewById(R.id.tv_name);
                 TextView tv_number = view.findViewById(R.id.tv_number);
                 TextView tv_price = view.findViewById(R.id.tv_price);
