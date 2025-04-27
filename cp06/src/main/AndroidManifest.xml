@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidstudy">
-
+        <activity
+            android:name=".GoodsDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".ShoppingChannelActivity"
-            android:theme="@style/AppCompatTheme">
-        </activity>
-
+            android:theme="@style/AppCompatTheme"></activity>
         <activity
             android:name=".ShoppingCartActivity"
             android:exported="true"

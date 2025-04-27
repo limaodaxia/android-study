@@ -18,6 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.cp06.dao.CartInfoDao;
 import com.example.cp06.dao.GoodsInfoDao;
 import com.example.cp06.databinding.ActivityShoppingCartBinding;
 import com.example.cp06.entity.CartInfo;
@@ -31,6 +32,9 @@ import java.util.List;
 public class ShoppingCartActivity extends AppCompatActivity {
 
     private static final String TAG = "ShoppingCartActivity";
+
+    private CartInfoDao cartInfoDao = MainApplication.getInstance().getCartDatabase().getCartInfoDao();
+    private GoodsInfoDao goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
     private ActivityShoppingCartBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +64,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         downloadGoods();
-        showGoods();
+        showCart();
     }
 
     private String isFirst ="true";
@@ -70,7 +74,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
         if ("true".equals(isFirst)){
             // 模拟下载商品
             List<GoodsInfo> goodsInfoList = GoodsInfo.getDefaultList();
-            GoodsInfoDao goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
             // 获取外部存储的路径
             String externalPath = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString()+"/";
             Log.d(TAG, "首次进入，开始下载，下载路径为" + externalPath);
@@ -94,10 +97,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
 
     private List<CartInfo> cartInfoList = new LinkedList<>();
-    private void showGoods() {
+    private void showCart() {
         binding.llCart.removeAllViews();
-        cartInfoList = MainApplication.getInstance().getCartDatabase().getCartInfoDao().getAllCartInfo();
-        GoodsInfoDao goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
+        cartInfoList = cartInfoDao.getAllCartInfo();
         // 判断商品是否为空
         if (cartInfoList.isEmpty()){
             binding.llNoItem.setVisibility(View.VISIBLE);
@@ -106,7 +108,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             cartInfoList.forEach(cartInfo -> {
                 GoodsInfo goodsInfoById = goodsInfoDao.getGoodsInfoById(cartInfo.getGoodsId());
                 // 加载视图
-                View view = LayoutInflater.from(this).inflate(R.layout.cart_item, binding.llCart, false);
+                View view = LayoutInflater.from(this).inflate(R.layout.item_cart, binding.llCart, false);
 
                 // 获取控件
                 ImageView iv_pic = view.findViewById(R.id.iv_pic);
