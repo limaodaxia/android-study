@@ -91,9 +91,16 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     private List<CartInfo> cartInfoList = new LinkedList<>();
     private void showGoods() {
-        if (cartInfoList.size() == 0){
-            cartInfoList.clear();
+
+        // 判断商品是否为空
+        if (cartInfoList.isEmpty()){
+            binding.llNoItem.setVisibility(View.VISIBLE);
+        }else{
+            // 显示商品信息
+            cartInfoList.forEach(cartInfo -> {
+
+            });
         }
-        //binding.goodsLayout.addView();
+
     }
 }
