@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.cp06.dao.GoodsInfoDao;
 import com.example.cp06.databinding.ActivityShoppingCartBinding;
@@ -22,6 +26,12 @@ public class ShoppingCartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityShoppingCartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        EdgeToEdge.enable(this);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
         binding.header.tvTitle.setText("购物车");
 
         binding.btnShoppingChannel.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +74,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
 
     private void showGoods() {
+
         //binding.goodsLayout.addView();
     }
 }

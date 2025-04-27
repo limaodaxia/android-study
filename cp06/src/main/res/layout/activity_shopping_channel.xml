@@ -13,15 +13,15 @@
         android:id="@+id/header"
         layout="@layout/header"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <GridLayout
-            android:id="@+id/gridLayout"
+            android:id="@+id/goods_grid_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"/>
-    </LinearLayout>
+    </ScrollView>
 
     <Button
         android:layout_width="match_parent"
