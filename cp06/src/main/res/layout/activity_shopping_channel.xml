@@ -7,15 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".ShoppingChannelActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    android:background="@color/orange">
 
     <include
-        layout="@layout/header">
+        android:id="@+id/header"
+        layout="@layout/header"/>
 
-    </include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"/>
+    </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/go_to_shoppingCart"
         android:id="@+id/btn_shopping_cart"/>

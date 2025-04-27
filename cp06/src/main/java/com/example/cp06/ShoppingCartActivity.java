@@ -17,6 +17,30 @@ import java.util.List;
 public class ShoppingCartActivity extends AppCompatActivity {
 
     private ActivityShoppingCartBinding binding;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityShoppingCartBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.header.tvTitle.setText("购物车");
+
+        binding.btnShoppingChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShoppingCartActivity.this, ShoppingChannelActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        downloadGoods();
+        showGoods();
+    }
 
     private String isFirst ="true";
     private void downloadGoods(){
@@ -39,27 +63,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         SharedUtil.getInstance(this).writeString("first", "false");
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityShoppingCartBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        binding.btnShoppingChannel.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ShoppingCartActivity.this, ShoppingChannelActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        downloadGoods();
+    private void showGoods() {
+        //binding.goodsLayout.addView();
     }
 }

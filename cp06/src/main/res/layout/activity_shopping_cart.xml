@@ -7,20 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".ShoppingCartActivity"
     android:orientation="vertical"
-    android:gravity="center"
     android:background="@color/orange">
 
-    <include layout="@layout/header"/>
+    <include
+        android:id="@+id/header"
+        layout="@layout/header"/>
 
 
     <LinearLayout
         android:id="@+id/goodsLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
     </LinearLayout>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

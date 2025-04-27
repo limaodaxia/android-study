@@ -4,7 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+//import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+//import androidx.core.graphics.Insets;
+//import androidx.core.view.ViewCompat;
+//import androidx.core.view.WindowInsetsCompat;
+
 import com.example.cp06.databinding.ActivityShoppingChannelBinding;
 
 public class ShoppingChannelActivity extends AppCompatActivity {
@@ -16,13 +21,7 @@ public class ShoppingChannelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityShoppingChannelBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-//        EdgeToEdge.enable(this);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+        binding.header.tvTitle.setText("商品频道");
 
         binding.btnShoppingCart.setOnClickListener(new View.OnClickListener() {
 
