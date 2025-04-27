@@ -5,18 +5,26 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import com.example.cp06.database.CartDatabase;
 import com.example.cp06.database.GoodsDatabase;
 
 public class MainApplication extends Application {
     private static MainApplication mApp;
 
-    private GoodsDatabase mDatabase;
+    private GoodsDatabase goodsDatabase;
+
+    private CartDatabase cartDatabase;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         mApp = this;
-        mDatabase = Room.databaseBuilder(mApp, GoodsDatabase.class, "GoodsInfo")
+        goodsDatabase = Room.databaseBuilder(mApp, GoodsDatabase.class, "GoodsInfo")
+                .addMigrations()
+                .allowMainThreadQueries()
+                .build();
+        cartDatabase = Room.databaseBuilder(mApp, CartDatabase.class, "CartInfo")
                 .addMigrations()
                 .allowMainThreadQueries()
                 .build();
@@ -27,6 +35,10 @@ public class MainApplication extends Application {
     }
 
     public GoodsDatabase getGoodsDatabase() {
-        return mDatabase;
+        return goodsDatabase;
+    }
+
+    public CartDatabase getCartDatabase() {
+        return cartDatabase;
     }
 }

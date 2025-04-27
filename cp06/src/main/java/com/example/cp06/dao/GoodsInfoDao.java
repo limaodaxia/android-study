@@ -14,6 +14,9 @@ public interface GoodsInfoDao {
     @Query("select * from goodsinfo")
     List<GoodsInfo> getAllGoodsInfo();
 
+    @Query("select * from goodsinfo where id = :id")
+    GoodsInfo getGoodsInfoById(long id);
+
     @Insert
     long insertGoodsInfo(GoodsInfo goodsInfo);
 

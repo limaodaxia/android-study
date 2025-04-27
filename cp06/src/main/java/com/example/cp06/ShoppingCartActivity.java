@@ -3,10 +3,14 @@ package com.example.cp06;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,7 +60,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         downloadGoods();
-        // showGoods();
+        showGoods();
     }
 
     private String isFirst ="true";
@@ -91,14 +95,34 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     private List<CartInfo> cartInfoList = new LinkedList<>();
     private void showGoods() {
-
+        binding.llCart.removeAllViews();
+        cartInfoList = MainApplication.getInstance().getCartDatabase().getCartInfoDao().getAllCartInfo();
+        GoodsInfoDao goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
         // 判断商品是否为空
         if (cartInfoList.isEmpty()){
             binding.llNoItem.setVisibility(View.VISIBLE);
         }else{
             // 显示商品信息
             cartInfoList.forEach(cartInfo -> {
+                GoodsInfo goodsInfoById = goodsInfoDao.getGoodsInfoById(cartInfo.getGoodsId());
+                // 加载视图
+                View view = LayoutInflater.from(this).inflate(R.layout.cart_item, binding.llCart, false);
 
+                // 获取控件
+                ImageView iv_pic = view.findViewById(R.id.iv_pic);
+                TextView tv_name = view.findViewById(R.id.tv_name);
+                TextView tv_number = view.findViewById(R.id.tv_number);
+                TextView tv_price = view.findViewById(R.id.tv_price);
+                TextView tv_total_price = view.findViewById(R.id.tv_total_price);
+
+                // 填充数据
+                iv_pic.setImageURI(Uri.parse(goodsInfoById.getPicPath()));
+                tv_name.setText(goodsInfoById.getName());
+                tv_number.setText(String.valueOf(cartInfo.getCount())); // 这里不小心直接传入了int，方法识别成了id
+                tv_price.setText(String.valueOf(goodsInfoById.getPrice()));
+                tv_total_price.setText(String.valueOf(goodsInfoById.getPrice() * cartInfo.getCount()));
+
+                binding.llCart.addView(view);
             });
         }
 
