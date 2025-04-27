@@ -49,13 +49,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
         });
         binding.header.tvTitle.setText("购物车");
         binding.header.ivBack.setOnClickListener(v -> finish());
-        binding.btnShoppingChannel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ShoppingCartActivity.this, ShoppingChannelActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
+        binding.btnShoppingChannel.setOnClickListener(v -> {
+            Intent intent = new Intent(ShoppingCartActivity.this, ShoppingChannelActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
 
     }

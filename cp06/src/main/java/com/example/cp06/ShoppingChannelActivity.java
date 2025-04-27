@@ -28,7 +28,6 @@ import java.util.List;
 public class ShoppingChannelActivity extends AppCompatActivity {
 
     private ActivityShoppingChannelBinding binding;
-
     private CartInfoDao cartInfoDao = MainApplication.getInstance().getCartDatabase().getCartInfoDao();
     private GoodsInfoDao goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
 
@@ -92,15 +91,10 @@ public class ShoppingChannelActivity extends AppCompatActivity {
             iv_thumb.setImageURI(Uri.parse(goodsInfo.getPicPath()));
             tv_name.setText(goodsInfo.getName());
             tv_price.setText(String.valueOf(goodsInfo.getPrice()));
-            iv_thumb.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(ShoppingChannelActivity.this, GoodsDetailActivity.class);
-                    intent.putExtra("goods_id", goodsInfo.getId());
-                    startActivity(intent);
-                }
-
+            iv_thumb.setOnClickListener(v -> {
+                Intent intent = new Intent(ShoppingChannelActivity.this, GoodsDetailActivity.class);
+                intent.putExtra("goods_id", goodsInfo.getId());
+                startActivity(intent);
             });
 
 
