@@ -61,6 +61,28 @@ public class ShoppingCartActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
+        binding.btnPay.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("确认支付")
+                    .setMessage("不好意思，您未开通支付权限，请联系客服")
+                    .setPositiveButton("确定", null)
+                    .create().show();
+        });
+        binding.btnClear.setOnClickListener(v -> {
+            // 弹出对话框
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("确认清空")
+            .setMessage("确定清空吗？")
+            .setPositiveButton("确定", (dialog, which) -> {
+                // 清空购物车
+                cartInfoDao.deleteAllCartInfo();
+                MainApplication.cartCount = 0;
+                showCount();
+                Toast.makeText(this, "已全部清空", Toast.LENGTH_SHORT).show();
+            })
+            .setNegativeButton("否",null)
+            .create().show();
+        });
 
         // 获取持久化对象
         cartInfoDao = MainApplication.getInstance().getCartDatabase().getCartInfoDao();

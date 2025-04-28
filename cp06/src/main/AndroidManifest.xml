@@ -15,6 +15,7 @@
         android:theme="@style/Theme.Androidstudy">
         <activity
             android:name=".GoodsDetailActivity"
+            android:theme="@style/AppCompatTheme"
             android:exported="false" />
         <activity
             android:name=".ShoppingChannelActivity"

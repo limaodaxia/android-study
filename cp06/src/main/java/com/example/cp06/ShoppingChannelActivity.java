@@ -103,22 +103,26 @@ public class ShoppingChannelActivity extends AppCompatActivity {
             });
             // 加入购物车
             btn_add.setOnClickListener(v -> {
-                // 先判断购物车是否有该商品，有则数量加1，没有则添加新的商品
-                CartInfo existedCartInfo = cartInfoDao.getCartInfoByGoodsId(goodsInfo.getId());
-                if (existedCartInfo == null){
-                    CartInfo newCartInfo = new CartInfo(goodsInfo.getId(), 1, LocalDateTime.now().toString());
-                    cartInfoDao.insertCartInfo(newCartInfo);
-                    MainApplication.cartCount++;
-                }else{
-                    existedCartInfo.setCount(existedCartInfo.getCount() + 1);
-                    cartInfoDao.updateCartInfo(existedCartInfo);
-                }
-                Toast.makeText(this, "成功添加一台 "+goodsInfo.getName(), Toast.LENGTH_SHORT).show();
-                binding.header.tvCartCount.setText(String.valueOf(MainApplication.cartCount));
+                addCart(goodsInfo);
             });
 
             // 向网格视图添加元素
             binding.glGoods.addView(view, params);
         }
+    }
+
+    private void addCart(GoodsInfo goodsInfo){
+        // 先判断购物车是否有该商品，有则数量加1，没有则添加新的商品
+        CartInfo existedCartInfo = cartInfoDao.getCartInfoByGoodsId(goodsInfo.getId());
+        if (existedCartInfo == null){
+            CartInfo newCartInfo = new CartInfo(goodsInfo.getId(), 1, LocalDateTime.now().toString());
+            cartInfoDao.insertCartInfo(newCartInfo);
+            MainApplication.cartCount++;
+        }else{
+            existedCartInfo.setCount(existedCartInfo.getCount() + 1);
+            cartInfoDao.updateCartInfo(existedCartInfo);
+        }
+        Toast.makeText(this, "成功添加一台 "+goodsInfo.getName(), Toast.LENGTH_SHORT).show();
+        binding.header.tvCartCount.setText(String.valueOf(MainApplication.cartCount));
     }
 }
