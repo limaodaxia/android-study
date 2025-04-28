@@ -8,39 +8,66 @@
     <ImageView
         android:id="@+id/iv_thumb"
         android:layout_width="85dp"
-        android:layout_height="100dp"
+        android:layout_height="85dp"
         android:src="@drawable/huawei"
         android:scaleType="fitCenter"/>
 
-    <TextView
-        android:id="@+id/tv_name"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Huawei Mate70"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_price"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="4999"/>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="start|center"
+            android:text="Huawei Mate70"
+            android:textColor="@color/black"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:gravity="start|center"
+            android:text="4999"
+            android:textColor="@color/black"
+            android:textSize="12sp"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_number"
-        android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="center"
-        android:text="1"/>
+        android:text="1"
+        android:textColor="@color/black"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:gravity="right|center"
+        android:text="4999"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
 
     <TextView
         android:id="@+id/tv_total_price"
-        android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="4999"/>
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="right|center"
+        android:text="4999"
+        android:textColor="@color/red"
+        android:textSize="17sp" />
+
 </LinearLayout>

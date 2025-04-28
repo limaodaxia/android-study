@@ -1,6 +1,7 @@
 package com.example.cp06.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -23,4 +24,7 @@ public interface CartInfoDao {
 
     @Update
     int updateCartInfo(CartInfo cartInfo);
+
+    @Delete
+    int deleteCartInfo(CartInfo cartInfo);
 }

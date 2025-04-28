@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -26,15 +28,16 @@ import com.example.cp06.entity.GoodsInfo;
 import com.example.cp06.util.FileUtil;
 import com.example.cp06.util.SharedUtil;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ShoppingCartActivity extends AppCompatActivity {
 
     private static final String TAG = "ShoppingCartActivity";
+    private CartInfoDao cartInfoDao;
+    private GoodsInfoDao goodsInfoDao;
 
-    private CartInfoDao cartInfoDao = MainApplication.getInstance().getCartDatabase().getCartInfoDao();
-    private GoodsInfoDao goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
     private ActivityShoppingCartBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +51,21 @@ public class ShoppingCartActivity extends AppCompatActivity {
             return insets;
         });
         binding.header.tvTitle.setText("购物车");
-        binding.header.ivBack.setOnClickListener(v -> finish());
+        binding.header.ivBack.setOnClickListener(v -> {
+            Intent intent = new Intent(ShoppingCartActivity.this, ShoppingChannelActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
         binding.btnShoppingChannel.setOnClickListener(v -> {
             Intent intent = new Intent(ShoppingCartActivity.this, ShoppingChannelActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
 
+        // 获取持久化对象
+        cartInfoDao = MainApplication.getInstance().getCartDatabase().getCartInfoDao();
+        goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
+        MainApplication.cartCount = cartInfoDao.getAllCartInfo().size();
     }
 
     @Override
@@ -65,6 +76,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         showCart();
     }
 
+    // 展示总量，并根据总量显示对应的视图
     private void showCount() {
         binding.header.tvCartCount.setText(String.valueOf(MainApplication.cartCount));
         // 根据当前购物车数量决定展示哪一个视图
@@ -72,7 +84,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             binding.llCart.setVisibility(View.GONE);
             binding.llNoItem.setVisibility(View.VISIBLE);
             binding.llCartItems.removeAllViews();
-
+            goodsIdMap.clear();
         }else{
             binding.llCart.setVisibility(View.VISIBLE);
             binding.llNoItem.setVisibility(View.GONE);
@@ -108,14 +120,27 @@ public class ShoppingCartActivity extends AppCompatActivity {
         SharedUtil.getInstance(this).writeString("first", "false");
     }
 
+    /**
+     * key: id
+     * value: GoodsInfo
+     * 存放id和GoodsInfo的映射关系，减少数据库的查询
+     */
+    private HashMap<Long, GoodsInfo> goodsIdMap = new HashMap<>();
+    /**
+     * 暂存从数据库查询到的购物车数量
+     */
     private List<CartInfo> cartInfoList = new LinkedList<>();
     private void showCart() {
         binding.llCartItems.removeAllViews(); // 注意购物车清空的对象
+        // 查询当前购买的商品
         cartInfoList = cartInfoDao.getAllCartInfo();
-
+        // 如果为空直接返回
+        if (cartInfoList==null|| cartInfoList.isEmpty()){
+            return ;
+        }
         // 显示商品信息，这里不用判断商品是否为空
         cartInfoList.forEach(cartInfo -> {
-            GoodsInfo goodsInfoById = goodsInfoDao.getGoodsInfoById(cartInfo.getGoodsId());
+            final GoodsInfo goodsInfoById = goodsInfoDao.getGoodsInfoById(cartInfo.getGoodsId());
             // 加载视图
             View view = LayoutInflater.from(this).inflate(R.layout.item_cart, binding.llCartItems, false);
 
@@ -125,17 +150,71 @@ public class ShoppingCartActivity extends AppCompatActivity {
             TextView tv_number = view.findViewById(R.id.tv_number);
             TextView tv_price = view.findViewById(R.id.tv_price);
             TextView tv_total_price = view.findViewById(R.id.tv_total_price);
-
+            TextView tv_desc = view.findViewById(R.id.tv_desc);
             // 填充数据
             iv_pic.setImageURI(Uri.parse(goodsInfoById.getPicPath()));
             tv_name.setText(goodsInfoById.getName());
+            tv_desc.setText(goodsInfoById.getDesc());
             tv_number.setText(String.valueOf(cartInfo.getCount())); // 这里不小心直接传入了int，方法识别成了id
             tv_price.setText(String.valueOf(goodsInfoById.getPrice()));
             tv_total_price.setText(String.valueOf(goodsInfoById.getPrice() * cartInfo.getCount()));
 
+            // 设置子项的监听
+            view.setOnClickListener(v -> {
+                Intent intent = new Intent(this, GoodsDetailActivity.class);
+                intent.putExtra("goodsId", cartInfo.getGoodsId());
+                startActivity(intent);
+            });
+
+            view.setOnLongClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("是否从购物车中删除"+goodsInfoById.getName()+"?");
+                builder.setPositiveButton("是",(dialog, which)->{
+                    binding.llCartItems.removeView(v);
+                    deleteCart(cartInfo);
+                });
+                builder.setNegativeButton("否", null);
+                builder.create().show();
+                return true;
+            });
+            // 添加映射关系
+            goodsIdMap.put(cartInfo.getGoodsId(), goodsInfoById);
+
+            // 添加视图
             binding.llCartItems.addView(view);
-            Log.d(TAG, "showCart: " + goodsInfoById.getName());
         });
 
+        // 刷新价格
+        refreshTotalPrice();
+    }
+
+    private void deleteCart(CartInfo cartInfo) {
+        // 数据库里删除该商品，是否根据id删除?
+        cartInfoDao.deleteCartInfo(cartInfo);
+        // 从购物车list中删除对应info，是否根据id删除
+        cartInfoList.remove(cartInfo);
+
+        // 给出提示
+        Toast.makeText(this, "已从购物车删除" + goodsIdMap.get(cartInfo.getGoodsId()).getName(), Toast.LENGTH_SHORT).show();
+
+        // 从映射关系里删除当前商品
+        goodsIdMap.remove(cartInfo.getGoodsId());
+        // 购物总数减少
+        MainApplication.cartCount --;
+        showCount();
+        // 刷新价格
+        refreshTotalPrice();
+
+    }
+
+    // 刷新总价
+    private void refreshTotalPrice(){
+        double sum = 0;
+        for (CartInfo cartInfo : cartInfoList) {
+            double price = goodsIdMap.get(cartInfo.getGoodsId()).getPrice();
+            int count = cartInfo.getCount();
+            sum += price * count;
+        }
+        binding.tvTotalPrice.setText(String.valueOf(sum));
     }
 }

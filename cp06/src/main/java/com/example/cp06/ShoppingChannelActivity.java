@@ -66,7 +66,7 @@ public class ShoppingChannelActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         showGoods();
-        binding.header.tvCartCount.setText(String.valueOf(MainApplication.cartCount));
+        binding.header.tvCartCount.setText(String.valueOf(MainApplication.cartCount)); // 显示购物车商品数量
     }
 
     /**
@@ -108,12 +108,12 @@ public class ShoppingChannelActivity extends AppCompatActivity {
                 if (existedCartInfo == null){
                     CartInfo newCartInfo = new CartInfo(goodsInfo.getId(), 1, LocalDateTime.now().toString());
                     cartInfoDao.insertCartInfo(newCartInfo);
+                    MainApplication.cartCount++;
                 }else{
                     existedCartInfo.setCount(existedCartInfo.getCount() + 1);
                     cartInfoDao.updateCartInfo(existedCartInfo);
                 }
                 Toast.makeText(this, "成功添加一台 "+goodsInfo.getName(), Toast.LENGTH_SHORT).show();
-                MainApplication.cartCount++;
                 binding.header.tvCartCount.setText(String.valueOf(MainApplication.cartCount));
             });
 
