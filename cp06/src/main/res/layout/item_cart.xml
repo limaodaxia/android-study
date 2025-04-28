@@ -3,14 +3,14 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
     android:background="@color/white">
 
     <ImageView
         android:id="@+id/iv_thumb"
         android:layout_width="85dp"
         android:layout_height="100dp"
-        android:src="@drawable/huawei"/>
+        android:src="@drawable/huawei"
+        android:scaleType="fitCenter"/>
 
     <TextView
         android:id="@+id/tv_name"

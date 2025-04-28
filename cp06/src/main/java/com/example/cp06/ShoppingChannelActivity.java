@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +20,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.cp06.dao.CartInfoDao;
 import com.example.cp06.dao.GoodsInfoDao;
 import com.example.cp06.databinding.ActivityShoppingChannelBinding;
+import com.example.cp06.entity.CartInfo;
 import com.example.cp06.entity.GoodsInfo;
 import com.example.cp06.util.ScreenUtil;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -74,18 +77,20 @@ public class ShoppingChannelActivity extends AppCompatActivity {
 
     private List<GoodsInfo> goodsInfoList = new LinkedList<>();
     private void showGoods() {
+        // 获取品目参数
         int screenWidth = ScreenUtil.getScreenWidth(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 screenWidth / 2, LinearLayout.LayoutParams.WRAP_CONTENT);
         binding.glGoods.removeAllViews();
         goodsInfoList = goodsInfoDao.getAllGoodsInfo();
+        // 根据购物车里的元素添加视图
         for (GoodsInfo goodsInfo : goodsInfoList) {
             // 获取控件
             View view = LayoutInflater.from(this).inflate(R.layout.item_goods, binding.glGoods, false);
             ImageView iv_thumb = view.findViewById(R.id.iv_thumb);
             TextView tv_name = view.findViewById(R.id.tv_name);
-            TextView tv_price =view.findViewById(R.id.tv_price);
-            Button btn_add =view.findViewById(R.id.btn_add);
+            TextView tv_price = view.findViewById(R.id.tv_price);
+            Button btn_add = view.findViewById(R.id.btn_add);
 
             // 初始化控件
             iv_thumb.setImageURI(Uri.parse(goodsInfo.getPicPath()));
@@ -96,8 +101,23 @@ public class ShoppingChannelActivity extends AppCompatActivity {
                 intent.putExtra("goods_id", goodsInfo.getId());
                 startActivity(intent);
             });
+            // 加入购物车
+            btn_add.setOnClickListener(v -> {
+                // 先判断购物车是否有该商品，有则数量加1，没有则添加新的商品
+                CartInfo existedCartInfo = cartInfoDao.getCartInfoByGoodsId(goodsInfo.getId());
+                if (existedCartInfo == null){
+                    CartInfo newCartInfo = new CartInfo(goodsInfo.getId(), 1, LocalDateTime.now().toString());
+                    cartInfoDao.insertCartInfo(newCartInfo);
+                }else{
+                    existedCartInfo.setCount(existedCartInfo.getCount() + 1);
+                    cartInfoDao.updateCartInfo(existedCartInfo);
+                }
+                Toast.makeText(this, "成功添加一台 "+goodsInfo.getName(), Toast.LENGTH_SHORT).show();
+                MainApplication.cartCount++;
+                binding.header.tvCartCount.setText(String.valueOf(MainApplication.cartCount));
+            });
 
-
+            // 向网格视图添加元素
             binding.glGoods.addView(view, params);
         }
     }

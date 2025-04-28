@@ -60,8 +60,23 @@ public class ShoppingCartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        showCount();
         downloadGoods();
         showCart();
+    }
+
+    private void showCount() {
+        binding.header.tvCartCount.setText(String.valueOf(MainApplication.cartCount));
+        // 根据当前购物车数量决定展示哪一个视图
+        if (MainApplication.cartCount == 0){
+            binding.llCart.setVisibility(View.GONE);
+            binding.llNoItem.setVisibility(View.VISIBLE);
+            binding.llCartItems.removeAllViews();
+
+        }else{
+            binding.llCart.setVisibility(View.VISIBLE);
+            binding.llNoItem.setVisibility(View.GONE);
+        }
     }
 
     private String isFirst ="true";
@@ -95,35 +110,32 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     private List<CartInfo> cartInfoList = new LinkedList<>();
     private void showCart() {
-        binding.llCart.removeAllViews();
+        binding.llCartItems.removeAllViews(); // 注意购物车清空的对象
         cartInfoList = cartInfoDao.getAllCartInfo();
-        // 判断商品是否为空
-        if (cartInfoList.isEmpty()){
-            binding.llNoItem.setVisibility(View.VISIBLE);
-        }else{
-            // 显示商品信息
-            cartInfoList.forEach(cartInfo -> {
-                GoodsInfo goodsInfoById = goodsInfoDao.getGoodsInfoById(cartInfo.getGoodsId());
-                // 加载视图
-                View view = LayoutInflater.from(this).inflate(R.layout.item_cart, binding.llCart, false);
 
-                // 获取控件
-                ImageView iv_pic = view.findViewById(R.id.iv_thumb);
-                TextView tv_name = view.findViewById(R.id.tv_name);
-                TextView tv_number = view.findViewById(R.id.tv_number);
-                TextView tv_price = view.findViewById(R.id.tv_price);
-                TextView tv_total_price = view.findViewById(R.id.tv_total_price);
+        // 显示商品信息，这里不用判断商品是否为空
+        cartInfoList.forEach(cartInfo -> {
+            GoodsInfo goodsInfoById = goodsInfoDao.getGoodsInfoById(cartInfo.getGoodsId());
+            // 加载视图
+            View view = LayoutInflater.from(this).inflate(R.layout.item_cart, binding.llCartItems, false);
 
-                // 填充数据
-                iv_pic.setImageURI(Uri.parse(goodsInfoById.getPicPath()));
-                tv_name.setText(goodsInfoById.getName());
-                tv_number.setText(String.valueOf(cartInfo.getCount())); // 这里不小心直接传入了int，方法识别成了id
-                tv_price.setText(String.valueOf(goodsInfoById.getPrice()));
-                tv_total_price.setText(String.valueOf(goodsInfoById.getPrice() * cartInfo.getCount()));
+            // 获取控件
+            ImageView iv_pic = view.findViewById(R.id.iv_thumb);
+            TextView tv_name = view.findViewById(R.id.tv_name);
+            TextView tv_number = view.findViewById(R.id.tv_number);
+            TextView tv_price = view.findViewById(R.id.tv_price);
+            TextView tv_total_price = view.findViewById(R.id.tv_total_price);
 
-                binding.llCart.addView(view);
-            });
-        }
+            // 填充数据
+            iv_pic.setImageURI(Uri.parse(goodsInfoById.getPicPath()));
+            tv_name.setText(goodsInfoById.getName());
+            tv_number.setText(String.valueOf(cartInfo.getCount())); // 这里不小心直接传入了int，方法识别成了id
+            tv_price.setText(String.valueOf(goodsInfoById.getPrice()));
+            tv_total_price.setText(String.valueOf(goodsInfoById.getPrice() * cartInfo.getCount()));
+
+            binding.llCartItems.addView(view);
+            Log.d(TAG, "showCart: " + goodsInfoById.getName());
+        });
 
     }
 }

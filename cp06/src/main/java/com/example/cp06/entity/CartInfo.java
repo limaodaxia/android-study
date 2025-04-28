@@ -1,12 +1,24 @@
 package com.example.cp06.entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDateTime;
 
 @Entity
 public class CartInfo {
+
+//    public CartInfo(){
+//
+//    }
+
+    // @Ignore
+    public CartInfo(long goodsId, int count, String updateTime) {
+        this.goodsId = goodsId;
+        this.count = count;
+        this.updateTime = updateTime;
+    }
     @PrimaryKey(autoGenerate = true)
     private long id;
 
