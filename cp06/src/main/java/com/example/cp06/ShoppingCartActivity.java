@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -94,8 +95,12 @@ public class ShoppingCartActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         showCount();
-        downloadGoods();
         showCart();
+    }
+    @Override
+    protected void onNewIntent(@NonNull Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
     // 展示总量，并根据总量显示对应的视图
@@ -111,35 +116,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
             binding.llCart.setVisibility(View.VISIBLE);
             binding.llNoItem.setVisibility(View.GONE);
         }
-    }
-
-    private String isFirst ="true";
-    private void downloadGoods(){
-        // 获取共享参数是否为首次打开
-        isFirst = SharedUtil.getInstance(this).readString("first", "true");
-        if ("true".equals(isFirst)){
-            // 模拟下载商品
-            List<GoodsInfo> goodsInfoList = GoodsInfo.getDefaultList();
-            // 获取外部存储的路径
-            String externalPath = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString()+"/";
-            Log.d(TAG, "首次进入，开始下载，下载路径为" + externalPath);
-            // 保存到数据库
-            goodsInfoList.forEach(goodsInfo -> {
-                // 先要插入数据库，自动生成id
-                long id = goodsInfoDao.insertGoodsInfo(goodsInfo);
-                goodsInfo.setId(id); // 保存id
-                // 把图片保存到本地
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), goodsInfo.getPicId());
-                String pic_path = externalPath + id + ".jpg";
-                FileUtil.saveImage(pic_path, bitmap);
-                // 保存图片路径
-                goodsInfo.setPicPath(pic_path);
-                // 数据库更新
-                goodsInfoDao.updateGoodsInfo(goodsInfo);
-            });
-        }
-
-        SharedUtil.getInstance(this).writeString("first", "false");
     }
 
     /**

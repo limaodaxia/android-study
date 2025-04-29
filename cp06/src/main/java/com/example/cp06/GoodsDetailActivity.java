@@ -3,10 +3,12 @@ package com.example.cp06;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,8 +24,8 @@ import java.time.LocalDateTime;
 
 public class GoodsDetailActivity extends AppCompatActivity {
 
+    private static final String TAG = "GoodsDetailActivity";
     private ActivityGoodsDetailBinding binding;
-
     private GoodsInfoDao goodsInfoDao;
     private CartInfoDao cartInfoDao;
 
@@ -48,26 +50,32 @@ public class GoodsDetailActivity extends AppCompatActivity {
 
         goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
         cartInfoDao = MainApplication.getInstance().getCartDatabase().getCartInfoDao();
+        MainApplication.cartCount = cartInfoDao.getAllCartInfo().size();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadGoodsDetail(); //zh展示商品详情
+        loadGoodsDetail(); //展示商品详情
         binding.header.tvCartCount.setText(String.valueOf(MainApplication.cartCount));
     }
 
+    @Override
+    protected void onNewIntent(@NonNull Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
     private void loadGoodsDetail(){
-        int goodsId = getIntent().getIntExtra("goodsId", -1);
-        if (goodsId > -1){
+        long goodsId = getIntent().getLongExtra("goodsId", -1); // 注意这里获取到的值是int类型
+        Log.d(TAG, "进入商品id为"+ goodsId + "的详情页");
+        if (goodsId !=-1){
             GoodsInfo goodsInfoById = goodsInfoDao.getGoodsInfoById(goodsId);
             binding.header.tvTitle.setText(goodsInfoById.getName());
             binding.ivPic.setImageURI(Uri.parse(goodsInfoById.getPicPath()));
             binding.tvDesc.setText(goodsInfoById.getDesc());
             binding.tvPrice.setText(String.valueOf(goodsInfoById.getPrice()));
-            binding.btnAdd.setOnClickListener(v->{
-                addCart(goodsInfoById);
-            });
+            binding.btnAdd.setOnClickListener(v-> addCart(goodsInfoById));
         }
     }
 

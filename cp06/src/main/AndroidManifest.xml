@@ -16,19 +16,26 @@
         <activity
             android:name=".GoodsDetailActivity"
             android:theme="@style/AppCompatTheme"
-            android:exported="false" />
-        <activity
+            android:launchMode="singleTop"/>
+
+        <activity android:exported="true"
             android:name=".ShoppingChannelActivity"
-            android:theme="@style/AppCompatTheme"/>
-        <activity
-            android:name=".ShoppingCartActivity"
-            android:exported="true"
-            android:theme="@style/AppCompatTheme">
+            android:theme="@style/AppCompatTheme"
+            android:launchMode="singleTop">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".ShoppingCartActivity"
+            android:theme="@style/AppCompatTheme"
+            android:launchMode="singleTask">
+
         </activity>
     </application>
 
