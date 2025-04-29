@@ -21,7 +21,7 @@ public class MainApplication extends Application {
         super.onCreate();
         mApp = this;
 
-        shoppingDatabase = Room.databaseBuilder(mApp, ShoppingDatabase.class, "CartInfo")
+        shoppingDatabase = Room.databaseBuilder(mApp, ShoppingDatabase.class, "ShoppingDatabase")
                 .addMigrations()
                 .allowMainThreadQueries()
                 .build();
