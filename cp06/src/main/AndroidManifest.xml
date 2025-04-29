@@ -14,12 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidstudy">
         <activity
-            android:name=".GoodsDetailActivity"
+            android:name=".ui.GoodsDetailActivity"
             android:theme="@style/AppCompatTheme"
             android:launchMode="singleTop"/>
 
         <activity android:exported="true"
-            android:name=".ShoppingChannelActivity"
+            android:name=".ui.ShoppingChannelActivity"
             android:theme="@style/AppCompatTheme"
             android:launchMode="singleTop">
 
@@ -32,7 +32,7 @@
         </activity>
 
         <activity
-            android:name=".ShoppingCartActivity"
+            android:name=".ui.ShoppingCartActivity"
             android:theme="@style/AppCompatTheme"
             android:launchMode="singleTask">
 

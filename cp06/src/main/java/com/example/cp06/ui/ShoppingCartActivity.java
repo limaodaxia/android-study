@@ -1,12 +1,8 @@
-package com.example.cp06;
+package com.example.cp06.ui;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,13 +17,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.cp06.MainApplication;
+import com.example.cp06.R;
 import com.example.cp06.dao.CartInfoDao;
 import com.example.cp06.dao.GoodsInfoDao;
 import com.example.cp06.databinding.ActivityShoppingCartBinding;
 import com.example.cp06.entity.CartInfo;
 import com.example.cp06.entity.GoodsInfo;
-import com.example.cp06.util.FileUtil;
-import com.example.cp06.util.SharedUtil;
 
 import java.util.HashMap;
 import java.util.LinkedList;

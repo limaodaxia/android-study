@@ -8,18 +8,12 @@ import android.content.SharedPreferences.Editor;
  * SharedPreferences 工具类
  */
 public class SharedUtil {
-    private final SharedPreferences mShared;
-    private static SharedUtil sharedUtil;
+    private static SharedPreferences mShared;
 
-    private SharedUtil(Context context){
-        mShared = context.getSharedPreferences("cp06", Context.MODE_PRIVATE);
-    }
-
-    public static SharedUtil getInstance(Context context){
-        if(sharedUtil == null){
-            sharedUtil = new SharedUtil(context);
+    public static void initialize(Context context){
+        if(mShared == null){
+            mShared = context.getSharedPreferences("cp06", Context.MODE_PRIVATE);
         }
-        return sharedUtil;
     }
 
     public void writeString(String key, String value){
@@ -32,13 +26,4 @@ public class SharedUtil {
         return mShared.getString(key, defaultValue);
     }
 
-    public void writeInt(String key, int value){
-        Editor edit = mShared.edit();
-        edit.putInt(key, value);
-        edit.commit();
-    }
-
-    public int readInt(String key, int defaultValue){
-        return mShared.getInt(key, defaultValue);
-    }
 }

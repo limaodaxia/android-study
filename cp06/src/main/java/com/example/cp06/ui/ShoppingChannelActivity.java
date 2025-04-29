@@ -1,4 +1,4 @@
-package com.example.cp06;
+package com.example.cp06.ui;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,12 +22,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.cp06.MainApplication;
+import com.example.cp06.R;
 import com.example.cp06.dao.CartInfoDao;
 import com.example.cp06.dao.GoodsInfoDao;
 import com.example.cp06.databinding.ActivityShoppingChannelBinding;
 import com.example.cp06.entity.CartInfo;
 import com.example.cp06.entity.GoodsInfo;
 import com.example.cp06.util.FileUtil;
+import com.example.cp06.util.MMKVUtil;
 import com.example.cp06.util.ScreenUtil;
 import com.example.cp06.util.SharedUtil;
 
@@ -58,13 +61,10 @@ public class ShoppingChannelActivity extends AppCompatActivity {
         // 页面初始化
         binding.header.tvTitle.setText("商品频道");
         binding.header.ivBack.setOnClickListener(v -> finish());
-        binding.header.ivCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ShoppingChannelActivity.this, ShoppingCartActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
+        binding.header.ivCart.setOnClickListener(v -> {
+            Intent intent = new Intent(ShoppingChannelActivity.this, ShoppingCartActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
         // 持久化对象
         cartInfoDao = MainApplication.getInstance().getCartDatabase().getCartInfoDao();
@@ -95,7 +95,7 @@ public class ShoppingChannelActivity extends AppCompatActivity {
     private String isFirst ="true";
     private void downloadGoods(){
         // 获取共享参数是否为首次打开
-        isFirst = SharedUtil.getInstance(this).readString("first", "true");
+        isFirst = MMKVUtil.readString("first", "true");
         if ("true".equals(isFirst)){
             // 模拟下载商品
             List<GoodsInfo> goodsInfoList = GoodsInfo.getDefaultList();
@@ -116,9 +116,11 @@ public class ShoppingChannelActivity extends AppCompatActivity {
                 // 数据库更新
                 goodsInfoDao.updateGoodsInfo(goodsInfo);
             });
+        }else{
+            Log.d(TAG, "不是首次进入，直接展示商品");
         }
 
-        SharedUtil.getInstance(this).writeString("first", "false");
+        MMKVUtil.writeString("first", "false");
     }
 
     private List<GoodsInfo> goodsInfoList = new LinkedList<>();

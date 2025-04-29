@@ -7,6 +7,8 @@ import androidx.room.Room;
 
 import com.example.cp06.database.CartDatabase;
 import com.example.cp06.database.GoodsDatabase;
+import com.example.cp06.util.MMKVUtil;
+import com.tencent.mmkv.MMKV;
 
 public class MainApplication extends Application {
     private static MainApplication mApp;
@@ -29,6 +31,8 @@ public class MainApplication extends Application {
                 .addMigrations()
                 .allowMainThreadQueries()
                 .build();
+        MMKV.initialize(this);
+        MMKVUtil.initialize("cp06");
     }
 
     public static MainApplication getInstance() {

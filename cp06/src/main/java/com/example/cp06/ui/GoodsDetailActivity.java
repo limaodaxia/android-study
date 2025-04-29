@@ -1,10 +1,9 @@
-package com.example.cp06;
+package com.example.cp06.ui;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.cp06.MainApplication;
+import com.example.cp06.R;
 import com.example.cp06.dao.CartInfoDao;
 import com.example.cp06.dao.GoodsInfoDao;
 import com.example.cp06.databinding.ActivityGoodsDetailBinding;
