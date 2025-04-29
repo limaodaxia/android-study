@@ -82,8 +82,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
         });
 
         // 获取持久化对象
-        cartInfoDao = MainApplication.getInstance().getCartDatabase().getCartInfoDao();
-        goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
+        cartInfoDao = MainApplication.getInstance().getShoppingDatabase().getCartInfoDao();
+        goodsInfoDao = MainApplication.getInstance().getShoppingDatabase().getGoodsInfoDao();
         MainApplication.cartCount = cartInfoDao.getAllCartInfo().size();
     }
 

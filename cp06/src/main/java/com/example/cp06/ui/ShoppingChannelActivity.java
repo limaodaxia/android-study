@@ -41,8 +41,8 @@ import java.util.List;
 public class ShoppingChannelActivity extends AppCompatActivity {
     private static final String TAG = "ShoppingChannelActivity";
     private ActivityShoppingChannelBinding binding;
-    private CartInfoDao cartInfoDao = MainApplication.getInstance().getCartDatabase().getCartInfoDao();
-    private GoodsInfoDao goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
+    private CartInfoDao cartInfoDao;
+    private GoodsInfoDao goodsInfoDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +67,8 @@ public class ShoppingChannelActivity extends AppCompatActivity {
             startActivity(intent);
         });
         // 持久化对象
-        cartInfoDao = MainApplication.getInstance().getCartDatabase().getCartInfoDao();
-        goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
+        cartInfoDao = MainApplication.getInstance().getShoppingDatabase().getCartInfoDao();
+        goodsInfoDao = MainApplication.getInstance().getShoppingDatabase().getGoodsInfoDao();
         MainApplication.cartCount = cartInfoDao.getAllCartInfo().size();
     }
 
@@ -116,11 +116,12 @@ public class ShoppingChannelActivity extends AppCompatActivity {
                 // 数据库更新
                 goodsInfoDao.updateGoodsInfo(goodsInfo);
             });
+            MMKVUtil.writeString("first", "false");
         }else{
             Log.d(TAG, "不是首次进入，直接展示商品");
         }
 
-        MMKVUtil.writeString("first", "false");
+
     }
 
     private List<GoodsInfo> goodsInfoList = new LinkedList<>();

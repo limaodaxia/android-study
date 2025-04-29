@@ -49,8 +49,8 @@ public class GoodsDetailActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        goodsInfoDao = MainApplication.getInstance().getGoodsDatabase().getGoodsInfoDao();
-        cartInfoDao = MainApplication.getInstance().getCartDatabase().getCartInfoDao();
+        goodsInfoDao = MainApplication.getInstance().getShoppingDatabase().getGoodsInfoDao();
+        cartInfoDao = MainApplication.getInstance().getShoppingDatabase().getCartInfoDao();
         MainApplication.cartCount = cartInfoDao.getAllCartInfo().size();
     }
 
