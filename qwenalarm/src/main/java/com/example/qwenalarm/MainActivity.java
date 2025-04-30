@@ -15,8 +15,11 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Calendar;
 
@@ -50,8 +53,13 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
 
+        Toast.makeText(this, "闹钟设置成功！", Toast.LENGTH_SHORT).show();
+
+        Log.d("lxl", "Alarm set for: " + calendar.getTime());
+
         // 如果时间已经过了今天，则设为明天
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+            Log.d("lxl", "Time is in the past. Setting alarm for tomorrow.");
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
@@ -61,12 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
-            // 每天重复一次
-            alarmManager.setRepeating(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY,
-                    pendingIntent);
+            Log.d("lxl","has alarmManager");
+                    // 每天重复一次
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
         }
     }
 }

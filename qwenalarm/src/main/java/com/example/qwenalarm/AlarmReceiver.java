@@ -1,5 +1,6 @@
 package com.example.qwenalarm;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -7,6 +8,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.RequiresPermission;
 import androidx.core.app.NotificationCompat;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -28,14 +31,12 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (manager == null) return;
 
         // 创建通知通道（Android O+ 需要）
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID,
-                    "闹钟提醒",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            manager.createNotificationChannel(channel);
-        }
+        NotificationChannel channel = new NotificationChannel(
+                CHANNEL_ID,
+                "闹钟提醒",
+                NotificationManager.IMPORTANCE_HIGH
+        );
+        manager.createNotificationChannel(channel);
 
         Intent mainIntent = new Intent(context, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(
