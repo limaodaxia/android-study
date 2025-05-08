@@ -1,6 +1,8 @@
 package com.example.cp07.billbook.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerTabStrip;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.cp07.R;
@@ -79,6 +82,11 @@ public class BillPagerActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.vp_bill_pager);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);
+
+        // 设置标签的字体大小和颜色
+        PagerTabStrip ptsBillPager = findViewById(R.id.pts_bill_pager);
+        ptsBillPager.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        ptsBillPager.setTextColor(Color.BLACK);
 
         // 初始化账单数据
         billMap = getDefaultBillMap();

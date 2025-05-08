@@ -1,6 +1,7 @@
 package com.example.cp07.billbook.adapter;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -27,6 +28,14 @@ public class MonthBillPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         return MonthBillFragment.newInstance(months.get(position));
+    }
+
+    // 给每个页面假如标题
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        super.getPageTitle(position);
+        return months.get(position);
     }
 
     // 返回要显示的月份数量，即总共的页面数
