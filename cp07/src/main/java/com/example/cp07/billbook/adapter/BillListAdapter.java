@@ -46,18 +46,31 @@ public class BillListAdapter extends BaseAdapter {
     // 获取view，根据view来修改数据
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // 如果为空，实例化视图
+        BillViewHolder holder;
+        // 如果视图为空，实例化视图
         if(convertView == null){
             convertView = LayoutInflater.from(context).inflate(R.layout.item_bill, parent, false);
+            // 创建缓存类
+            holder = new BillViewHolder();
+            holder.tvDatetime = convertView.findViewById(R.id.tv_datetime);
+            holder.tvType = convertView.findViewById(R.id.tv_type);
+            holder.tvAmount = convertView.findViewById(R.id.tv_amount);
+            convertView.setTag(holder);
+        }else{
+            holder = (BillViewHolder)convertView.getTag();
         }
-        // 找到内容并设置数据
-        TextView tvDatetime = convertView.findViewById(R.id.tv_datetime);
-        tvDatetime.setText(bills.get(position).getDatetime());
-        TextView tvType = convertView.findViewById(R.id.tv_type);
-        tvType.setText(bills.get(position).getType()==1?"收入":"支出");
-        TextView tvAmount = convertView.findViewById(R.id.tv_amount);
-        tvAmount.setText(bills.get(position).getAmount()+"");
+        // 根据元素位置设置数据
+        holder.tvDatetime.setText(bills.get(position).getDatetime());
+        holder.tvType.setText(bills.get(position).getType()==1?"收入":"支出");
+        holder.tvAmount.setText(String.valueOf(bills.get(position).getAmount()));
 
         return convertView;
+    }
+
+    // 用来缓存视图，不用每次都去findViewById减少时间消耗
+    private class BillViewHolder{
+        TextView tvDatetime;
+        TextView tvType;
+        TextView tvAmount;
     }
 }
