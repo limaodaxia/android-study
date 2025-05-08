@@ -1,4 +1,4 @@
-package com.example.cp07;
+package com.example.cp07.testlistview;
 
 import android.content.Context;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.cp07.R;
 
 import java.util.List;
 

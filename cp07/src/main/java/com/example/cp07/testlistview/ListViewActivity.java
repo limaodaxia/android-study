@@ -1,4 +1,4 @@
-package com.example.cp07;
+package com.example.cp07.testlistview;
 
 import android.os.Bundle;
 import android.widget.ListView;
@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.cp07.R;
 
 import java.util.ArrayList;
 import java.util.List;
