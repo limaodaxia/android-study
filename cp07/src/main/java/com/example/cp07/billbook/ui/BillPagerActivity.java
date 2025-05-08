@@ -1,8 +1,11 @@
 package com.example.cp07.billbook.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,6 +93,20 @@ public class BillPagerActivity extends AppCompatActivity {
 
         // 初始化账单数据
         billMap = getDefaultBillMap();
+
+
+
+        // 找到标题栏的控件并设置标题
+        TextView tvTitle = findViewById(R.id.tv_title);
+        tvTitle.setText("记账本");
+        // 首页隐藏返回按钮
+        findViewById(R.id.iv_back).setVisibility(View.GONE);
+        // 跳转到账单创建页面
+        TextView tvGoto = findViewById(R.id.tv_goto);
+        tvGoto.setText("创建账单");
+        tvGoto.setOnClickListener(view -> {
+            startActivity(new Intent(this, BillCreateActivity.class));
+        });
     }
 
 

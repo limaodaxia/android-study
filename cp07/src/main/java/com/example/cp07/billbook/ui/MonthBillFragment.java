@@ -46,10 +46,14 @@ public class MonthBillFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_month_bill, container, false);
         // 找到当前activity
         BillPagerActivity activity =(BillPagerActivity)requireActivity();
+        List<Bill> billsByMonth = activity.getBillsByMonth(mMonth);
         // 创建适配器并设置到ListView
-        BillListAdapter adapter = new BillListAdapter(activity, activity.getBillsByMonth(mMonth));
+        BillListAdapter adapter = new BillListAdapter(activity, billsByMonth);
         ListView listView = view.findViewById(R.id.lv_month_bill);
         listView.setAdapter(adapter);
+        if (billsByMonth==null){
+            view.findViewById(R.id.table_header).setVisibility(View.GONE);
+        }
         return view;
     }
 
