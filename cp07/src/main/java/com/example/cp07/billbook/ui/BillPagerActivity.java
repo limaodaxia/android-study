@@ -18,47 +18,23 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.cp07.R;
 import com.example.cp07.billbook.adapter.MonthBillPagerAdapter;
+import com.example.cp07.billbook.dao.BillDao;
 import com.example.cp07.billbook.entity.Bill;
 import com.example.cp07.billbook.entity.BillType;
+import com.example.cp07.billbook.database.BillDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 public class BillPagerActivity extends AppCompatActivity {
 
-    // 账单信息
-    private HashMap<String, List<Bill>> billMap;
+    // 获取账单访问对象
+    private BillDao billDao;
 
-    // 根据月份获取账单
-    public List<Bill> getBillsByMonth(String month) {
-        return billMap.get(month);
-    }
-
-    // 添加账单，根据账单的月份修改相应的value
-    public void addBill(Bill bill){
-        String month = bill.getDatetime().substring(5, 7);
-        List<Bill> list = billMap.get(month + "月份");
-        if (list == null){
-            list = new LinkedList<>();
-        }
-        list.add(bill);
-        billMap.put(month + "月份", list);
-    }
-
-    // 初始化每个月的账单数据，key为月份，value为帐单列表，key不存在相当于当前月份没有账单
-    public HashMap<String, List<Bill>> getDefaultBillMap(){
-        HashMap<String, List<Bill>> map = new HashMap<>();
-        for(int i = 1; i<=12; i++){
-            if (i==3){
-                List<Bill> list = new LinkedList<>();
-                list.add(new Bill("2025-03-22", 100, "吃了个饭", BillType.EXPENSE));
-                list.add(new Bill("2025-03-31", 4400, "收到工资", BillType.INCOME));
-                map.put(i+"月份", list);
-            }
-        }
-        return map;
+    // 在数据库中初始化每个月的账单数据
+    public void getDefaultBillMap(){
+        billDao.addBill(new Bill("2025-03-22", 100, "吃了个饭", BillType.EXPENSE));
+        billDao.addBill(new Bill("2025-03-31", 4400, "收到工资", BillType.INCOME));
     }
 
 
@@ -78,8 +54,7 @@ public class BillPagerActivity extends AppCompatActivity {
         // 创建一个viewpager的适配器
         MonthBillPagerAdapter adapter = new MonthBillPagerAdapter(
                 getSupportFragmentManager(),
-                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
-                getDefaultMonths());
+                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
         // 找到viewpager并设置适配器
         ViewPager viewPager = findViewById(R.id.vp_bill_pager);
@@ -91,8 +66,8 @@ public class BillPagerActivity extends AppCompatActivity {
         ptsBillPager.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         ptsBillPager.setTextColor(Color.BLACK);
 
-        // 初始化账单数据
-        billMap = getDefaultBillMap();
+        // 初始化账单访问对象
+        billDao = BillDatabase.getInstance().getBillDao();
 
         // 找到标题栏的控件并设置标题
         TextView tvTitle = findViewById(R.id.tv_title);
@@ -105,15 +80,5 @@ public class BillPagerActivity extends AppCompatActivity {
         tvGoto.setOnClickListener(view -> {
             startActivity(new Intent(this, BillCreateActivity.class));
         });
-    }
-
-
-    // 获取默认月份数据
-    private List<String> getDefaultMonths(){
-        List<String> list = new ArrayList<>(12);
-        for(int i = 1; i<=12; i++){
-            list.add(i+"月份");
-        }
-        return list;
     }
 }

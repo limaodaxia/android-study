@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cp07.R;
 import com.example.cp07.billbook.adapter.BillListAdapter;
+import com.example.cp07.billbook.dao.BillDao;
+import com.example.cp07.billbook.database.BillDatabase;
 import com.example.cp07.billbook.entity.Bill;
 
 import java.util.HashMap;
@@ -20,12 +22,14 @@ import java.util.List;
 public class MonthBillFragment extends Fragment {
 
 
-    private String mMonth;
+    private BillDao billDao;
+
+    private int mMonth;
 
     // 创建一个新的Fragment实例并传递月份参数，这里不能直接设置因为这是静态方法
-    public static MonthBillFragment newInstance(String mMonth) {
+    public static MonthBillFragment newInstance(int mMonth) {
         Bundle args = new Bundle();
-        args.putString("month", mMonth);
+        args.putInt("month", mMonth);
         MonthBillFragment fragment = new MonthBillFragment();
         fragment.setArguments(args);
         return fragment;
@@ -35,7 +39,9 @@ public class MonthBillFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 获取月份并设置
-        mMonth = getArguments().getString("month");
+        assert getArguments() != null; // 确保参数不为空
+        mMonth = getArguments().getInt("month");
+        billDao = BillDatabase.getInstance().getBillDao();
     }
 
     @Nullable
@@ -46,7 +52,7 @@ public class MonthBillFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_month_bill, container, false);
         // 找到当前activity
         BillPagerActivity activity =(BillPagerActivity)requireActivity();
-        List<Bill> billsByMonth = activity.getBillsByMonth(mMonth);
+        List<Bill> billsByMonth = billDao.getBillsByMonth(mMonth);
         // 创建适配器并设置到ListView
         BillListAdapter adapter = new BillListAdapter(activity, billsByMonth);
         ListView listView = view.findViewById(R.id.lv_month_bill);

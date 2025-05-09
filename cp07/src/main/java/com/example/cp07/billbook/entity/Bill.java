@@ -1,6 +1,13 @@
 package com.example.cp07.billbook.entity;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "bills")
 public class Bill {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String datetime;
     private double amount;
     private String remark;
@@ -45,4 +52,11 @@ public class Bill {
         this.type = type;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

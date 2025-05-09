@@ -13,12 +13,11 @@ import java.util.List;
 public class MonthBillPagerAdapter extends FragmentPagerAdapter {
 
     // 总共的月份数
-    private final List<String> months;
+    private final List<Integer> months;
 
     //构造函数传入要显示的月份
     public MonthBillPagerAdapter(@NonNull FragmentManager fm,
-                                 int behavior,
-                                 List<String> months) {
+                                 int behavior) {
         super(fm, behavior);
         this.months = months;
     }
