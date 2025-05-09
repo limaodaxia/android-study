@@ -5,8 +5,136 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".billbook.ui.BillCreateActivity">
+    tools:context=".billbook.ui.BillCreateActivity"
+    android:orientation="vertical">
 
     <include layout="@layout/header" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:text="选择日期："
+            android:gravity="end|center"
+            android:textSize="17sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:drawableEndCompat="@drawable/arrow_down" />
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_type"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="账单类型："
+            android:gravity="end|center"
+            android:textSize="17sp"
+            android:textColor="@color/black"/>
+
+        <RadioButton
+            android:id="@+id/rb_expand"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="支出"
+            android:layout_gravity="center|left"
+            android:checked="true"
+            android:textSize="17sp"
+            android:textColor="@color/black" />
+
+        <RadioButton
+            android:id="@+id/rb_income"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="收入"
+            android:layout_gravity="center|left"
+            android:textSize="17sp"
+            android:textColor="@color/black"/>
+
+    </RadioGroup>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="事项说明："
+            android:gravity="right|center"
+            android:textSize="17sp"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/et_desc"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:background="@drawable/edittext_selector"
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:gravity="top|left"
+            android:hint="请填写交易详情"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="　　金额："
+            android:gravity="right|center"
+            android:textSize="17sp"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/et_amount"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:background="@drawable/edittext_selector"
+            android:hint="单位(元)"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="17sp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="保  存"
+        android:textSize="20sp"
+        android:layout_margin="5dp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/grey"/>
 
 </LinearLayout>

@@ -94,8 +94,6 @@ public class BillPagerActivity extends AppCompatActivity {
         // 初始化账单数据
         billMap = getDefaultBillMap();
 
-
-
         // 找到标题栏的控件并设置标题
         TextView tvTitle = findViewById(R.id.tv_title);
         tvTitle.setText("记账本");
