@@ -10,13 +10,15 @@ import android.widget.TextView;
 import com.example.cp07.R;
 import com.example.cp07.billbook.entity.Bill;
 
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
 public class BillListAdapter extends BaseAdapter {
 
-    private List<Bill> bills;
-    private Context context;
+    private final List<Bill> bills;
+    private final Context context;
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public BillListAdapter(Context context, List<Bill> bills) {
         this.context = context;
@@ -60,7 +62,7 @@ public class BillListAdapter extends BaseAdapter {
             holder = (BillViewHolder)convertView.getTag();
         }
         // 根据元素位置设置数据
-        holder.tvDatetime.setText(bills.get(position).getCreateTime()+"");
+        holder.tvDatetime.setText(bills.get(position).getCreateTime().format(dateFormatter));
         holder.tvType.setText(bills.get(position).getType()==1?"收入":"支出");
         holder.tvAmount.setText(String.valueOf(bills.get(position).getAmount()));
 
@@ -68,7 +70,7 @@ public class BillListAdapter extends BaseAdapter {
     }
 
     // 用来缓存视图，不用每次都去findViewById减少时间消耗
-    private class BillViewHolder{
+    private static class BillViewHolder{
         TextView tvDatetime;
         TextView tvType;
         TextView tvAmount;
