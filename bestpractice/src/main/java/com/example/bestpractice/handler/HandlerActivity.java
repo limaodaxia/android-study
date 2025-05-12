@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,11 +22,25 @@ public class HandlerActivity extends AppCompatActivity {
 
     private TextView tv_result;
 
+    private Button btn_get_data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handler);
         tv_result = findViewById(R.id.tv_result);
+        btn_get_data = findViewById(R.id.btn_get_data);
+        btn_get_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 子线程给主线程的handler发消息
+                Message msg = new Message();
+                msg.what = 1;
+                msg.obj = "123";
+
+            }
+        });
+
         // 初始化 Handler, 这个是绑定了主线程的looper
         MainThreadHandler = new Handler(new Handler.Callback() {
             @Override
