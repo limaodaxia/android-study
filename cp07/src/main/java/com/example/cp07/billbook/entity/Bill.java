@@ -2,30 +2,31 @@ package com.example.cp07.billbook.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import java.time.LocalDateTime;
 
 @Entity(tableName = "bills")
 public class Bill {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String datetime;
+    private LocalDateTime createTime;
     private double amount;
     private String remark;
     private int type; //BillType的两周类型，收入 INCOME 和 支出 EXPENSE
 
-    public Bill(String datetime, double amount, String remark, int type) {
-        this.datetime = datetime;
+    public Bill(LocalDateTime createTime, double amount, String remark, int type) {
+        this.createTime = createTime;
         this.amount = amount;
         this.remark = remark;
         this.type = type;
     }
 
-    public String getDatetime() {
-        return datetime;
+    public LocalDateTime getCreateTime() {
+        return createTime;
     }
 
-    public void setDatetime(String datetime) {
-        this.datetime = datetime;
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
     }
 
     public double getAmount() {

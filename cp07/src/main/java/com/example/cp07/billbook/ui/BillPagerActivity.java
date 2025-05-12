@@ -23,8 +23,7 @@ import com.example.cp07.billbook.entity.Bill;
 import com.example.cp07.billbook.entity.BillType;
 import com.example.cp07.billbook.database.BillDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 public class BillPagerActivity extends AppCompatActivity {
 
@@ -32,9 +31,9 @@ public class BillPagerActivity extends AppCompatActivity {
     private BillDao billDao;
 
     // 在数据库中初始化每个月的账单数据
-    public void getDefaultBillMap(){
-        billDao.addBill(new Bill("2025-03-22", 100, "吃了个饭", BillType.EXPENSE));
-        billDao.addBill(new Bill("2025-03-31", 4400, "收到工资", BillType.INCOME));
+    public void initDefaultBill(){
+        billDao.addBill(new Bill(LocalDateTime.now(), 100, "吃了个饭", BillType.EXPENSE));
+        billDao.addBill(new Bill(LocalDateTime.now(), 4400, "收到工资", BillType.INCOME));
     }
 
 
@@ -80,5 +79,6 @@ public class BillPagerActivity extends AppCompatActivity {
         tvGoto.setOnClickListener(view -> {
             startActivity(new Intent(this, BillCreateActivity.class));
         });
+        initDefaultBill();
     }
 }

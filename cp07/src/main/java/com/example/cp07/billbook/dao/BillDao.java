@@ -8,6 +8,7 @@ import androidx.room.Query;
 
 import com.example.cp07.billbook.entity.Bill;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Dao
@@ -16,11 +17,11 @@ public interface BillDao {
     List<Bill> getAllBills();
 
     @Insert
-    int addBill(Bill bill);
+    Long addBill(Bill bill);
 
     @Delete
-    int deleteBillById(int id);
+    int deleteBill(Bill bill);
 
-
-    List<Bill> getBillsByMonth(int mMonth);
+    @Query("SELECT * FROM bills WHERE createTime >= :startTime AND createTime <= :endTime")
+    List<Bill> getBillsByTimeRange(LocalDateTime startTime, LocalDateTime endTime);
 }

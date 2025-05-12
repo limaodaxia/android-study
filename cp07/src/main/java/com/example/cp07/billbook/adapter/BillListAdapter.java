@@ -60,7 +60,7 @@ public class BillListAdapter extends BaseAdapter {
             holder = (BillViewHolder)convertView.getTag();
         }
         // 根据元素位置设置数据
-        holder.tvDatetime.setText(bills.get(position).getDatetime());
+        holder.tvDatetime.setText(bills.get(position).getCreateTime()+"");
         holder.tvType.setText(bills.get(position).getType()==1?"收入":"支出");
         holder.tvAmount.setText(String.valueOf(bills.get(position).getAmount()));
 

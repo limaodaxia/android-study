@@ -19,7 +19,7 @@ public class MonthBillPagerAdapter extends FragmentPagerAdapter {
     public MonthBillPagerAdapter(@NonNull FragmentManager fm,
                                  int behavior) {
         super(fm, behavior);
-        this.months = months;
+        this.months = List.of(1,2,3,4,5,6,7,8,9,10,11,12);
     }
 
     // 实例化Fragment，传入当前月份
@@ -29,12 +29,12 @@ public class MonthBillPagerAdapter extends FragmentPagerAdapter {
         return MonthBillFragment.newInstance(months.get(position));
     }
 
-    // 给每个页面假如标题
+    // 给每个页面加入标题
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
         super.getPageTitle(position);
-        return months.get(position);
+        return months.get(position)+"月份";
     }
 
     // 返回要显示的月份数量，即总共的页面数
