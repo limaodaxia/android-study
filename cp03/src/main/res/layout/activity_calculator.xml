@@ -43,8 +43,9 @@
 
                 <Button
                     android:id="@+id/btn_cancel"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="CE"
                     android:textColor="@color/black"
@@ -52,8 +53,9 @@
 
                 <Button
                     android:id="@+id/btn_divide"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="÷"
                     android:textColor="@color/black"
@@ -61,8 +63,9 @@
 
                 <Button
                     android:id="@+id/btn_multiply"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="×"
                     android:textColor="@color/black"
@@ -70,8 +73,9 @@
 
                 <Button
                     android:id="@+id/btn_clear"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="C"
                     android:textColor="@color/black"
@@ -79,8 +83,9 @@
 
                 <Button
                     android:id="@+id/btn_seven"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="7"
                     android:textColor="@color/black"
@@ -88,8 +93,9 @@
 
                 <Button
                     android:id="@+id/btn_eight"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="8"
                     android:textColor="@color/black"
@@ -97,8 +103,9 @@
 
                 <Button
                     android:id="@+id/btn_nine"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="9"
                     android:textColor="@color/black"
@@ -106,8 +113,9 @@
 
                 <Button
                     android:id="@+id/btn_plus"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="+"
                     android:textColor="@color/black"
@@ -115,8 +123,9 @@
 
                 <Button
                     android:id="@+id/btn_four"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="4"
                     android:textColor="@color/black"
@@ -124,8 +133,9 @@
 
                 <Button
                     android:id="@+id/btn_five"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="5"
                     android:textColor="@color/black"
@@ -133,8 +143,9 @@
 
                 <Button
                     android:id="@+id/btn_six"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="6"
                     android:textColor="@color/black"
@@ -142,8 +153,9 @@
 
                 <Button
                     android:id="@+id/btn_minus"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="-"
                     android:textColor="@color/black"
@@ -151,8 +163,9 @@
 
                 <Button
                     android:id="@+id/btn_one"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="1"
                     android:textColor="@color/black"
@@ -160,8 +173,9 @@
 
                 <Button
                     android:id="@+id/btn_two"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="2"
                     android:textColor="@color/black"
@@ -169,8 +183,9 @@
 
                 <Button
                     android:id="@+id/btn_three"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="3"
                     android:textColor="@color/black"
@@ -178,16 +193,18 @@
 
                 <ImageButton
                     android:id="@+id/ib_sqrt"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:src="@drawable/sqrt"
                     android:scaleType="fitCenter"/>
 
                 <Button
                     android:id="@+id/btn_reciprocal"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="1/X"
                     android:textColor="@color/black"
@@ -195,8 +212,9 @@
 
                 <Button
                     android:id="@+id/btn_zero"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="0"
                     android:textColor="@color/black"
@@ -204,8 +222,9 @@
 
                 <Button
                     android:id="@+id/btn_dot"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="."
                     android:textColor="@color/black"
@@ -213,8 +232,9 @@
 
                 <Button
                     android:id="@+id/btn_equal"
-                    android:layout_width="95dp"
+                    android:layout_width="0dp"
                     android:layout_height="75dp"
+                    android:layout_columnWeight="1"
                     android:gravity="center"
                     android:text="="
                     android:textColor="@color/black"
