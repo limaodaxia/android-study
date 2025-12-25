@@ -9,7 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidstudy">
         <activity
-            android:name=".ForgetActivity" />
+            android:name=".AlertDialogActivity"
+            android:exported="true" />
+        <activity android:name=".ForgetActivity" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -21,8 +23,7 @@
         </activity>
         <activity
             android:name=".SwitchIOSActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"/>
     </application>
 
 </manifest>
