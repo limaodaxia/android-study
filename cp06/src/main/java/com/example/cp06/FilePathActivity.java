@@ -68,10 +68,10 @@ public class FilePathActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // writeToPrivateFile("lxl will success", installPath+"test.txt");
                 // writeToPrivateFile("lxl will success", publicPath+"/test.txt");
-                if (checkPermission(FilePathActivity.this, "android.permission.READ_MEDIA_AUDIO"
-                        , 1)){
-                    writeToPrivateFile("lxl will success", publicPath+"/test.txt");
-                }
+//                if (checkPermission(FilePathActivity.this, "android.permission.READ_MEDIA_AUDIO"
+//                        , 1)){
+//                    writeToPrivateFile("lxl will success", publicPath+"/test.txt");
+//                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     writeTxtToPublicDownload("test.txt", "lxl will success");
                 }
