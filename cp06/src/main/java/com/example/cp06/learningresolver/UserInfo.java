@@ -11,4 +11,20 @@ public class UserInfo {
     String password;
     String phone;
     boolean married;
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "rowid=" + rowid +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", update_time='" + update_time + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", married=" + married +
+                '}';
+    }
 }

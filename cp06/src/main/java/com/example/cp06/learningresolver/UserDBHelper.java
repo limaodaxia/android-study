@@ -19,7 +19,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "user.db";
     private static final String TABLE_NAME = "user_info";
 
-    public UserDBHelper(@Nullable Context context, int version) {
+    private UserDBHelper(@Nullable Context context, int version) {
         // 这里已经传入了DB_NAME，后续获取数据库的时候就是根据这个名字获取
         super(context,  DB_NAME, null, version);
     }
@@ -36,6 +36,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
         String create_sql = "CREATE TABLE IF NOT EXISTS " +TABLE_NAME +"(" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 "name VARCHAR NOT NULL," +
+                "age INTEGER NOT NULL,"+
                 "height INTEGER NOT NULL," +
                 "weight FLOAT NOT NULL," +
                 "married INTEGER NOT NULL," +
