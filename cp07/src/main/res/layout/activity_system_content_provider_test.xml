@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/main">
+    <Button
+        android:id="@+id/btn_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="按钮一" />
+
+    <Button
+        android:id="@+id/btn_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="按钮二" />
+
+    <Button
+        android:id="@+id/btn_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="按钮三" />
+
+    <Button
+        android:id="@+id/btn_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="按钮四" />
+
+    <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginVertical="8dp"
+    android:background="#DDDDDD" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="操作结果将在此显示..."
+            android:padding="8dp"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+    </ScrollView>
+
+</LinearLayout>

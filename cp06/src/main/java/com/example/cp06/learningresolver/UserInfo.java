@@ -1,16 +1,16 @@
 package com.example.cp06.learningresolver;
 
 public class UserInfo {
-    long rowid; // 行号
-    int id;
-    String name;
-    int age;
-    long height;
-    float weight;
-    String update_time;
-    String password;
-    String phone;
-    boolean married;
+    public long rowid; // 行号
+    public int id;
+    public String name;
+    public int age;
+    public long height;
+    public float weight;
+    public String update_time;
+    public String password;
+    public String phone;
+    public boolean married;
 
     @Override
     public String toString() {

@@ -17,7 +17,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase mDB = null;
     private static final String DB_NAME = "user.db";
-    private static final String TABLE_NAME = "user_info";
+    public static final String TABLE_NAME = "user_info";
 
     private UserDBHelper(@Nullable Context context, int version) {
         // 这里已经传入了DB_NAME，后续获取数据库的时候就是根据这个名字获取

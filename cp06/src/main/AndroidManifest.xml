@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -9,30 +9,34 @@
         <package android:name="com.tencent.map" />
         <!-- android 11后要进行声明才能获得可见性 -->
     </queries>
+
     <application
-        android:name=".MainApplication"
+
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+
         android:preserveLegacyExternalStorage="true"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+
         android:supportsRtl="true"
-        android:theme="@style/Theme.Androidstudy">
+ >
+        <provider
+            android:name=".learningresolver.UserInfoProvider"
+            android:authorities="com.example.cp06.learningresolver.UserInfoProvider"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
         <activity
             android:name=".learningresolver.DBTestActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".FilePathActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".ui.GoodsDetailActivity"
             android:launchMode="singleTop"
@@ -41,7 +45,7 @@
             android:name=".ui.ShoppingChannelActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:theme="@style/AppCompatTheme"></activity>
+            android:theme="@style/AppCompatTheme" />
         <activity
             android:name=".ui.ShoppingCartActivity"
             android:launchMode="singleTask"
